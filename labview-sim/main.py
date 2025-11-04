@@ -446,26 +446,15 @@ def api_submit_test():
                     return jsonify({"error": f"Failed to create device: {create_response.text}"}), 400
 
             # Get the latest journal entry (device version)
-            # Retry a few times in case journal entry was just created
             journal_url = f"{test_api_url.rsplit('/tests', 1)[0]}/devices/{sample_id}/journal"
-            max_retries = 3
-            retry_delay = 0.5  # seconds
+            journal_response = requests.get(journal_url, headers=headers, timeout=10)
 
-            for attempt in range(max_retries):
-                journal_response = requests.get(journal_url, headers=headers, timeout=10)
-
-                if journal_response.status_code == 200:
-                    journal_entries = journal_response.json()
-                    if journal_entries and len(journal_entries) > 0:
-                        # Journal entries are sorted newest first
-                        device_version = journal_entries[0].get('device_version')
-                        if device_version:
-                            logger.info(f"Using device version: {device_version}")
-                            break
-
-                if attempt < max_retries - 1:
-                    logger.debug(f"Journal not ready, retrying in {retry_delay}s (attempt {attempt + 1}/{max_retries})")
-                    time.sleep(retry_delay)
+            if journal_response.status_code == 200:
+                journal_entries = journal_response.json()
+                if journal_entries and len(journal_entries) > 0:
+                    # Journal entries are sorted newest first
+                    device_version = journal_entries[0].get('device_version')
+                    logger.info(f"Using device version: {device_version}")
 
             if not device_version:
                 logger.warning(f"Could not get device version for {sample_id}")
