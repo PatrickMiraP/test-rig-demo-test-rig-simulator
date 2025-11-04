@@ -18,6 +18,7 @@ service_url = os.getenv("Quix__Deployment__Network__PublicUrl")
 data_api_endpoint = os.getenv("data_api_endpoint", "")
 test_api_url = os.getenv("TEST_API_URL", "http://localhost:3000/api/tests")
 ecu_api_url = os.getenv("ECU_API_URL", "http://localhost:3001/api/ecu")
+api_token = os.getenv("API_TOKEN", "")
 
 logger = get_logger()
 
@@ -446,10 +447,14 @@ def api_submit_test():
         
         # Post test data to the HTTP API
         try:
+            headers = {'Content-Type': 'application/json'}
+            if api_token:
+                headers['Authorization'] = f'Bearer {api_token}'
+
             response = requests.post(
                 test_api_url,
                 json=configuration,
-                headers={'Content-Type': 'application/json'},
+                headers=headers,
                 timeout=10
             )
             

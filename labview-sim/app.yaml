@@ -9,6 +9,9 @@ variables:
     inputType: FreeText
     multiline: false
     defaultValue: https://ecu-quixers-testrigdemotestrigsimulator-prod.az-france-0.app.quix.io/ecu/start
+  - name: API_TOKEN
+    inputType: Secret
+    multiline: false
 dockerfile: dockerfile
 runEntryPoint: main.py
 defaultFile: main.py
