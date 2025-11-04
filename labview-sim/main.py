@@ -458,7 +458,7 @@ def api_submit_test():
                     journal_entries = journal_response.json()
                     if journal_entries and len(journal_entries) > 0:
                         # Journal entries are sorted newest first
-                        device_version = journal_entries[0].get('_id')
+                        device_version = journal_entries[0].get('device_version')
                         if device_version:
                             logger.info(f"Using device version: {device_version}")
                             break
