@@ -413,13 +413,69 @@ def api_submit_test():
     try:
         data = request.get_json()
         
+        # Get or create device and fetch its latest version
+        sample_id = data.get('sampleid')
+        device_version = None
+
+        headers = {'Content-Type': 'application/json'}
+        if api_token:
+            headers['Authorization'] = f'Bearer {api_token}'
+
+        try:
+            # Try to get the device first
+            device_url = f"{test_api_url.rsplit('/tests', 1)[0]}/devices/{sample_id}"
+            device_response = requests.get(device_url, headers=headers, timeout=10)
+
+            if device_response.status_code == 404:
+                # Device doesn't exist, create it
+                logger.info(f"Device {sample_id} not found, creating it")
+                device_data = {
+                    "device_id": sample_id,
+                    "manufacturer": "Unknown",
+                    "product_category": "Sample",
+                    "product_name": sample_id,
+                    "sample_type": "Test Sample",
+                    "location": data.get('environmentid', 'Unknown'),
+                    "creator": data.get('operator', 'Unknown')
+                }
+                create_device_url = f"{test_api_url.rsplit('/tests', 1)[0]}/devices"
+                create_response = requests.post(create_device_url, json=device_data, headers=headers, timeout=10)
+
+                if create_response.status_code not in [200, 201]:
+                    logger.warning(f"Failed to create device. Status: {create_response.status_code}, Response: {create_response.text}")
+                    return jsonify({"error": f"Failed to create device: {create_response.text}"}), 400
+
+            # Get the latest journal entry (device version)
+            journal_url = f"{test_api_url.rsplit('/tests', 1)[0]}/devices/{sample_id}/journal"
+            journal_response = requests.get(journal_url, headers=headers, timeout=10)
+
+            if journal_response.status_code == 200:
+                journal_entries = journal_response.json()
+                if journal_entries and len(journal_entries) > 0:
+                    # Journal entries are sorted newest first
+                    device_version = journal_entries[0].get('_id')
+                    logger.info(f"Using device version: {device_version}")
+
+            if not device_version:
+                logger.warning(f"Could not get device version for {sample_id}")
+                return jsonify({"error": "Could not retrieve device version"}), 400
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Failed to get/create device: {str(e)}")
+            return jsonify({"error": "Failed to get or create device"}), 500
+
         # Format the data according to the API specification
         configuration = {
             "test_id": data.get('testid'),
             "campaign_id": data.get('campaignid'),
             "environment_id": data.get('environmentid'),
-            "sample_id": data.get('sampleid'),
             "operator": data.get('operator'),
+            "devices": [
+                {
+                    "device_id": sample_id,
+                    "device_version": device_version
+                }
+            ],
             "sensors": {
                 "throttle": {
                     "value": data.get('throttle')
@@ -439,10 +495,9 @@ def api_submit_test():
                 "fan": {
                     "id": data.get('fanid')
                 }
-            },
-            "timestamp": datetime.datetime.now().isoformat()
+            }
         }
-        
+
         logger.info(f"Test data formatted: {json.dumps(configuration)}")
         
         # Post test data to the HTTP API
