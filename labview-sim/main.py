@@ -312,7 +312,7 @@ def home_page():
                         <li><a target="_blank" href="https://query-ui-quixers-testrigdemodatawarehouse-prod.az-france-0.app.quix.io/?token=sdk-5de13ff9d5f644b2a614adc6c5b9ac7a">Data warehouse</a></li>
                         <li><a target="_blank" href="https://portal.cloud.quix.io/data?workspace=quixers-testrigdemomeasurementdata-prod">Data lake</a></li>
                         <li><a target="_blank" href="https://portal.cloud.quix.io/pipeline?workspace=quixers-testrigdemomeasurementdata-prod">Measurement data</a></li>
-                        <li><a target="_blank" href="https://frontend-7bdbce0-quixers-testrigdemoconfigurationmet-5f306d01.az-france-0.app.quix.io/">Test Manager</a></li>
+                        <li><a target="_blank" href="https://frontend-quixers-quixtestmanager-new.az-france-0.app.quix.io/">Test Manager</a></li>
                         <li><a target="_blank" href="https://marimo-analysis-quixers-testrigdemoadvancedanalytics-prod.az-france-0.app.quix.io">Full Analysis</a></li>
                         <li><a target="_blank" href="https://simplemarimo-c42ffa5-quixers-testrigdemoadvancedanalytics-prod.az-france-0.app.quix.io">Simple Analysis</a></li>
                     </ul>
@@ -329,7 +329,7 @@ def home_page():
                         <li><a target="_blank" href="https://query-ui-quixers-testrigdemodatawarehouse-prod.az-france-0.app.quix.io/?token=sdk-5de13ff9d5f644b2a614adc6c5b9ac7a">Data warehouse</a></li>
                         <li><a target="_blank" href="https://portal.cloud.quix.io/data?workspace=quixers-testrigdemomeasurementdata-prod">Data lake</a></li>
                         <li><a target="_blank" href="https://portal.cloud.quix.io/pipeline?workspace=quixers-testrigdemomeasurementdata-prod">Measurement data</a></li>
-                        <li><a target="_blank" href="https://frontend-7bdbce0-quixers-testrigdemoconfigurationmet-5f306d01.az-france-0.app.quix.io/">Test Manager</a></li>
+                        <li><a target="_blank" href="https://frontend-quixers-quixtestmanager-new.az-france-0.app.quix.io/">Test Manager</a></li>
                         <li><a target="_blank" href="https://marimo-analysis-quixers-testrigdemoadvancedanalytics-prod.az-france-0.app.quix.io">Full Analysis</a></li>
                         <li><a target="_blank" href="https://simplemarimo-c42ffa5-quixers-testrigdemoadvancedanalytics-prod.az-france-0.app.quix.io">Simple Analysis</a></li>
                     </ul>
