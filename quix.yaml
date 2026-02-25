@@ -23,7 +23,7 @@ deployments:
         value: https://backend-api-quixers-quixtestmanager-new.az-france-0.app.quix.io/api/v1/tests
       - name: ECU_API_URL
         inputType: FreeText
-        value: https://ecu-quixers-testrigdemotestrigsimulator-prod.az-france-0.app.quix.io/ecu/start
+        value: https://ecu-quixers-testrigdemotestrigsimulator-new.az-france-0.app.quix.io/ecu/start
       - name: API_TOKEN
         inputType: Secret
         secretKey: API_TOKEN
