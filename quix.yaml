@@ -37,6 +37,11 @@ deployments:
         label: LabTECH
         icon: computer
         order: 0
+      globalItem:
+        show: true
+        label: LabTECH
+        icon: computer
+        order: 0
   - name: Rig ECU
     application: rigecu
     version: latest
