@@ -321,7 +321,7 @@ def home_page():
 
             <div class="video-container" id="videoContainer">
                 <video id="testVideo" controls autoplay>
-                    <source src="/video.mp4" type="video/mp4">
+                    <source src="https://drive.google.com/file/d/1TtHd_KGQtKnIPnk79p6UmmHIhnAlZ-Ed/view?usp=drive_link" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <div class="media-links">
