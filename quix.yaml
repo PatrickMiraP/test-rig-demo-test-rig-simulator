@@ -57,7 +57,7 @@ deployments:
       - name: data_api_endpoint
         inputType: FreeText
         value: https://test-rig-data-quixers-testrigdemomeasurementdata-prod.az-france-0.app.quix.io/data
-  - name: labview-sim
+  - name: LudviksLabView
     application: labview-sim
     version: latest
     deploymentType: Service
