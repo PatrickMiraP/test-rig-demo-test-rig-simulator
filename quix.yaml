@@ -57,23 +57,6 @@ deployments:
       - name: data_api_endpoint
         inputType: FreeText
         value: https://test-rig-data-quixers-testrigdemomeasurementdata-prod.az-france-0.app.quix.io/data
-  - name: LudviksLabView
-    application: labview-sim
-    version: latest
-    deploymentType: Service
-    resources:
-      cpu: 200
-      memory: 500
-      replicas: 1
-    variables:
-      - name: TEST_API_URL
-        inputType: FreeText
-        value: https://backend-api-quixers-quixtestmanager-new.az-france-0.app.quix.io/api/v1/tests
-      - name: ECU_API_URL
-        inputType: FreeText
-        value: https://ecu-quixers-testrigdemotestrigsimulator-prod.az-france-0.app.quix.io/ecu/start
-      - name: API_TOKEN
-        inputType: Secret
 
 # This section describes the Topics of the data pipeline
 topics:
